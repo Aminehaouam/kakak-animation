@@ -1,0 +1,4 @@
+# scratch renders (rev2d's convention) and Python caches
+out/
+__pycache__/
+*.pyc

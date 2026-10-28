@@ -1,0 +1,90 @@
+{
+  "canvas": [
+    300,
+    360
+  ],
+  "offset": [
+    56,
+    -36
+  ],
+  "texelsPerPx": 4,
+  "layers": {
+    "upperBeak": {
+      "file": "textures/upperBeak.png",
+      "x": 192.0,
+      "y": 61.0,
+      "w": 49.0,
+      "h": 67.0,
+      "px": [
+        196,
+        268
+      ]
+    },
+    "mandible": {
+      "file": "textures/mandible.png",
+      "x": 191.0,
+      "y": 108.0,
+      "w": 34.0,
+      "h": 36.0,
+      "px": [
+        136,
+        144
+      ]
+    },
+    "pupil": {
+      "file": "textures/pupil.png",
+      "x": 158.0,
+      "y": 84.0,
+      "w": 25.0,
+      "h": 34.0,
+      "px": [
+        100,
+        136
+      ]
+    },
+    "wing": {
+      "file": "textures/wing.png",
+      "x": 82.0,
+      "y": 170.0,
+      "w": 98.0,
+      "h": 121.0,
+      "px": [
+        392,
+        484
+      ]
+    },
+    "base": {
+      "file": "textures/base.png",
+      "x": 85.0,
+      "y": 45.0,
+      "w": 156.0,
+      "h": 292.0,
+      "px": [
+        624,
+        1168
+      ]
+    },
+    "head": {
+      "file": "textures/head.png",
+      "x": 101.0,
+      "y": 45.0,
+      "w": 140.0,
+      "h": 120.0,
+      "px": [
+        560,
+        480
+      ]
+    },
+    "tail": {
+      "file": "textures/tail.png",
+      "x": 63.0,
+      "y": 267.0,
+      "w": 82.0,
+      "h": 62.0,
+      "px": [
+        328,
+        248
+      ]
+    }
+  }
+}
