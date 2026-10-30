@@ -1,0 +1,138 @@
+:root {
+  --ink: #1c2633;
+  --ink-soft: #3a4656;
+  --paper: #f5eddd;
+  --cream: #fcf8f0;
+  --red: #cf4339;
+  --red-deep: #a8302a;
+  --green: #23503e;
+  --gold: #e3aa3e;
+  --thames: #3d7aa3;
+  --night: #121b27;
+
+  --font-display: 'Fraunces Variable', 'Fraunces', Georgia, 'Times New Roman', serif;
+  --font-ui: 'Nunito Variable', 'Nunito', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-hand: 'Caveat Variable', 'Caveat', 'Comic Sans MS', cursive;
+
+  --bar-h: 64px;
+  color-scheme: light;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--night);
+  color: var(--ink);
+  font-family: var(--font-ui);
+  -webkit-font-smoothing: antialiased;
+  overflow: hidden;
+  overscroll-behavior: none;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+}
+
+:focus-visible {
+  outline: 3px solid var(--gold);
+  outline-offset: 2px;
+}
+
+.viewport {
+  position: fixed;
+  inset: 0;
+  height: 100dvh;
+  overflow: hidden;
+  background: var(--night);
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ---- scenes */
+
+.scene {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.stage {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.stage__world {
+  position: absolute;
+  left: 0;
+  top: 0;
+  transform-origin: 0 0;
+}
+
+.stage__world > svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+  }
+}
+
+/* shown when someone has paused the story to explore */
+.continue {
+  position: absolute;
+  left: 50%;
+  bottom: calc(var(--bar-h) + 22px);
+  transform: translateX(-50%);
+  z-index: 40;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 11px 18px 11px 22px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--red);
+  color: #fff;
+  font-weight: 800;
+  font-size: 15px;
+  box-shadow: 0 10px 26px rgb(120 30 24 / 0.35);
+  cursor: pointer;
+  animation: continue-in 0.4s cubic-bezier(0.2, 1.3, 0.4, 1);
+}
+
+.continue:hover {
+  background: var(--red-deep);
+}
+
+@keyframes continue-in {
+  from { opacity: 0; transform: translate(-50%, 12px); }
+}

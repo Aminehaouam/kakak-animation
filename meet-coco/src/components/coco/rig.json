@@ -1,0 +1,28 @@
+{
+ "artboard": "Coco",
+ "stateMachine": "Coco",
+ "size": [
+  360,
+  400
+ ],
+ "feet": [
+  180,
+  372
+ ],
+ "inputs": [
+  "flying",
+  "perched",
+  "look",
+  "excite"
+ ],
+ "durations": {
+  "idle": 4.0,
+  "perch": 4.0,
+  "look": 2.8,
+  "excited": 1.4,
+  "takeoff": 0.8,
+  "fly": 0.9,
+  "land": 0.8,
+  "blink": 7.0
+ }
+}

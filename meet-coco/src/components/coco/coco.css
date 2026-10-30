@@ -1,0 +1,22 @@
+.coco {
+  position: relative;
+  aspect-ratio: 360 / 400;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+
+.coco--ready {
+  opacity: 1;
+}
+
+.coco canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.coco--left canvas {
+  transform: scaleX(-1);
+}

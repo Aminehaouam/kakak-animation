@@ -1,0 +1,29 @@
+{
+  "name": "meet-coco",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Meet Coco: an animated introduction to a language-learning journey through England.",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview",
+    "typecheck": "tsc --noEmit",
+    "shoot": "node scripts/shoot.mjs"
+  },
+  "dependencies": {
+    "@fontsource-variable/caveat": "5.3.0",
+    "@fontsource-variable/fraunces": "5.3.0",
+    "@fontsource-variable/nunito": "5.3.0",
+    "@rive-app/canvas-lite": "2.49.0",
+    "react": "19.3.1",
+    "react-dom": "19.3.1"
+  },
+  "devDependencies": {
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0",
+    "@vitejs/plugin-react": "6.1.2",
+    "typescript": "7.0.2",
+    "vite": "8.3.5"
+  }
+}
