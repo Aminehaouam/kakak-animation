@@ -40,6 +40,15 @@ export class FlightPlan {
     this.rest = { at: rest.at, mode: rest.mode ?? 'stand', facing: rest.facing ?? 'right', scale: rest.scale ?? 1 };
   }
 
+  /** Where Coco is at t if every flight that has begun had already landed (reduced motion). */
+  settled(t: number): FlightState {
+    const begun = this.legs.filter((l) => t >= l.start - TAKEOFF_LEAD);
+    const last = begun[begun.length - 1];
+    if (!last) return this.at(-Infinity);
+    const end = this.at(last.start + last.duration);
+    return { ...end, mode: last.land ?? end.mode, tilt: 0 };
+  }
+
   at(t: number): FlightState {
     let state: FlightState = { ...this.rest.at, mode: this.rest.mode, facing: this.rest.facing, tilt: 0, scale: this.rest.scale };
     for (const leg of this.legs) {

@@ -22,10 +22,12 @@ export function S5London({ t, active, reduced }: SceneProps) {
   const cams = useMemo(() => {
     const view = { width: vp.width, height: vp.height };
     const all = frameCamera(Object.values(STOP_POINTS), view, vp.width >= 900 ? { top: 96, right: 76, bottom: 96, left: Math.min(380, vp.width * 0.3) } : { top: 70, right: 58, bottom: 100, left: 14 }, 70, 3);
-    return { all, london: { ...STOP_POINTS.london, zoom: 8 }, dive: { ...STOP_POINTS.london, zoom: 15 } };
+    return { all, london: { ...STOP_POINTS.london, zoom: 8 } };
   }, [vp.width, vp.height]);
-  // dive onto London, then keep falling into it while the street opens up
-  const mapCam = cameraAt(t, [[0, cams.all], [IRIS[0] + 0.2, cams.london, 'inOut'], [IRIS[0] + IRIS[1], cams.dive, 'in']]);
+  // dive onto London; the last plunge while the street opens is a GPU scale of the map layer,
+  // so the rasters aren't redrawn at huge zooms
+  const mapCam = cameraAt(t, [[0, cams.all], [IRIS[0] + 0.2, cams.london, 'inOut']]);
+  const plunge = reduced ? 1 : 1 + 1.1 * ease.in(progress(t, IRIS[0] + 0.2, IRIS[1]));
 
   // the street: on a phone the camera walks from Big Ben to the phone box
   const camX = vp.portrait ? keys(t, [[2.2, 520], [5.6, STREET.phoneBox.x + 20]]) : 820;
@@ -46,7 +48,9 @@ export function S5London({ t, active, reduced }: SceneProps) {
   return (
     <div className="s5">
       {r < 1 && (
-        <UkMap route={1} camera={reduced ? cams.london : mapCam} reduced={reduced} padding={none} />
+        <div className="s5__map" style={{ transform: plunge > 1 ? `scale(${plunge})` : undefined }}>
+          <UkMap route={1} camera={reduced ? cams.london : mapCam} reduced={reduced} padding={none} />
+        </div>
       )}
       <div
         className="s5__street"

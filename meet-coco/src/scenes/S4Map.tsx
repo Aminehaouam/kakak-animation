@@ -75,7 +75,7 @@ export function S4Map({ t, active, reduced, onHold }: SceneProps) {
         [T_ROUTE_DONE + 1.8, cams.routeAll],
       ]);
 
-  const fl = plan.at(reduced ? Math.max(t, 0) : t);
+  const fl = reduced ? plan.settled(t) : plan.at(t);
   const cocoVisible = t >= T_IN - 0.3;
   // stops: the one Coco is heading for pulses
   const current = LEGS.reduce<string | null>((cur, leg) => (t >= leg.start - 0.3 ? leg.to : cur), null);

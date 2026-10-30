@@ -55,7 +55,7 @@ export function S6Experiences({ t, active, reduced }: SceneProps) {
     });
     return new FlightPlan(legs, { at: top(0), mode: 'perch' });
   }, []);
-  const fl = reduced ? { ...plan.at(focusAt(focus)), mode: 'perch' as const, tilt: 0 } : plan.at(t);
+  const fl = reduced ? plan.settled(focusAt(focus)) : plan.at(t);
 
   const cardCam = (i: number) => ({ x: CARDS[i].x, y: CARDS[i].y - 10, zoom: wide ? 2.05 : 1 });
   const overview = { x: W / 2, y: H / 2, zoom: 1 };

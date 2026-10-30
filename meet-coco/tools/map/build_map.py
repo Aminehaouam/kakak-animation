@@ -282,6 +282,8 @@ def build_vectors(cache):
         'size': [W, H],
         'extent': list(EXT),
         'land': d_of(land_s),
+        # a light outline for small drawings (the paper map on the desk)
+        'landLow': d_of(MultiPolygon([q for q in polys(land.simplify(2.0, preserve_topology=True)) if q.area >= 40]), digits=0),
         'ireland': d_of(countries['IRL'].simplify(0.22, preserve_topology=True)),
         'neighbours': d_of(neighbours_s),
         'countries': country_out,

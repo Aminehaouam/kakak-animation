@@ -138,6 +138,11 @@ export const UkMap = memo(function UkMap({
   // ---- gestures: drag to pan, wheel / pinch / double-click to zoom
   const camRef = useRef(cam);
   camRef.current = cam;
+  // several pointer events can arrive before the next render: each builds on the last one
+  const moveTo = useCallback((c: MapCamera) => {
+    camRef.current = c;
+    setUserCam(c);
+  }, []);
   const touched = useRef(false);
   const takeOver = useCallback(() => {
     if (!touched.current) {
@@ -157,10 +162,10 @@ export const UkMap = memo(function UkMap({
       const wy = c.y + (py - size.h / 2) / s0;
       const zoom = clamp(c.zoom * factor, ZMIN, ZMAX);
       const s1 = fit * zoom;
-      setUserCam(clampCam({ x: wx - (px - size.w / 2) / s1, y: wy - (py - size.h / 2) / s1, zoom }));
+      moveTo(clampCam({ x: wx - (px - size.w / 2) / s1, y: wy - (py - size.h / 2) / s1, zoom }));
       takeOver();
     },
-    [fit, size.w, size.h, clampCam, takeOver],
+    [fit, size.w, size.h, clampCam, takeOver, moveTo],
   );
 
   useEffect(() => {
@@ -177,10 +182,15 @@ export const UkMap = memo(function UkMap({
 
   const pointers = useRef(new Map<number, Pt>());
   const pinch = useRef<{ d: number; mid: Pt } | null>(null);
+  const travel = useRef(0); // how far the current gesture has moved, to tell taps from drags
   const onPointerDown = (e: React.PointerEvent) => {
-    if (!interactive || (e.target as HTMLElement).closest('button, a, .map-card')) return;
-    (e.currentTarget as HTMLElement).setPointerCapture(e.pointerId);
+    const target = e.target as HTMLElement;
+    // the zoom buttons and the info card keep their own pointer handling; a finger that lands
+    // on a stop still counts toward a drag or a pinch, and a tap still opens the stop
+    if (!interactive || target.closest('.map-card, .ukmap__ui')) return;
+    if (!target.closest('button')) (e.currentTarget as HTMLElement).setPointerCapture(e.pointerId);
     pointers.current.set(e.pointerId, { x: e.clientX, y: e.clientY });
+    if (pointers.current.size === 1) travel.current = 0;
     pinch.current = null;
   };
   const onPointerMove = (e: React.PointerEvent) => {
@@ -188,12 +198,13 @@ export const UkMap = memo(function UkMap({
     if (!prev) return;
     const next = { x: e.clientX, y: e.clientY };
     pointers.current.set(e.pointerId, next);
+    travel.current += Math.hypot(next.x - prev.x, next.y - prev.y);
     const pts = [...pointers.current.values()];
     const c = camRef.current;
     if (pts.length === 1) {
+      if (travel.current < 5) return; // still a tap
       const sNow = fit * c.zoom;
-      if (Math.hypot(next.x - prev.x, next.y - prev.y) < 0.5) return;
-      setUserCam(clampCam({ x: c.x - (next.x - prev.x) / sNow, y: c.y - (next.y - prev.y) / sNow, zoom: c.zoom }));
+      moveTo(clampCam({ x: c.x - (next.x - prev.x) / sNow, y: c.y - (next.y - prev.y) / sNow, zoom: c.zoom }));
       takeOver();
     } else if (pts.length === 2) {
       const r = ref.current!.getBoundingClientRect();
@@ -201,8 +212,7 @@ export const UkMap = memo(function UkMap({
       const mid = { x: (pts[0].x + pts[1].x) / 2 - r.left, y: (pts[0].y + pts[1].y) / 2 - r.top };
       if (pinch.current) {
         const sNow = fit * c.zoom;
-        const panned = { ...c, x: c.x - (mid.x - pinch.current.mid.x) / sNow, y: c.y - (mid.y - pinch.current.mid.y) / sNow };
-        camRef.current = clampCam(panned);
+        camRef.current = clampCam({ ...c, x: c.x - (mid.x - pinch.current.mid.x) / sNow, y: c.y - (mid.y - pinch.current.mid.y) / sNow });
         zoomAt(d / pinch.current.d, mid.x, mid.y);
       }
       pinch.current = { d, mid };
@@ -225,7 +235,7 @@ export const UkMap = memo(function UkMap({
     if (moves[e.key]) {
       e.preventDefault();
       e.stopPropagation();
-      setUserCam(clampCam({ ...c, ...moves[e.key] }));
+      moveTo(clampCam({ ...c, ...moves[e.key] }));
       takeOver();
     } else if (e.key === '+' || e.key === '=') zoomAt(1.4, size.w / 2, size.h / 2);
     else if (e.key === '-' || e.key === '_') zoomAt(1 / 1.4, size.w / 2, size.h / 2);
@@ -349,9 +359,16 @@ export const UkMap = memo(function UkMap({
               ))}
             </g>
             <g opacity={oRoads}>
-              <path className="ukmap__road-minor" d={MAP.roads.minor} strokeWidth={px * 0.55} opacity={clamp(0.25 + (cam.zoom - 1) * 0.35, 0.25, 0.85)} />
+              {/* the finer lines only show once you zoom in: they cost the most to draw */}
+              {cam.zoom >= 1.3 && <path className="ukmap__road-minor" d={MAP.roads.minor} strokeWidth={px * 0.55} opacity={clamp(0.25 + (cam.zoom - 1) * 0.35, 0.25, 0.85)} />}
               <path className="ukmap__road" d={MAP.roads.major} strokeWidth={px * 1.0} />
-              <path className="ukmap__rail" d={MAP.rail} strokeWidth={px * 0.9} strokeDasharray={`${px * 3.2} ${px * 2.2}`} />
+              <path
+                className="ukmap__rail"
+                d={MAP.rail}
+                strokeWidth={px * 0.9}
+                strokeDasharray={cam.zoom >= 2.2 ? `${px * 3.2} ${px * 2.2}` : undefined}
+                style={cam.zoom >= 2.2 ? undefined : { opacity: 0.32 }}
+              />
               <path className="ukmap__ferry" d={MAP.roads.ferry} strokeWidth={px * 0.9} strokeDasharray={`${px * 1.2} ${px * 3.4}`} />
             </g>
             <path className="ukmap__borders" d={MAP.borders} strokeWidth={px * 1.3} strokeDasharray={`${px * 5} ${px * 3}`} style={{ opacity: oLand * 0.8 }} />
@@ -415,7 +432,10 @@ export const UkMap = memo(function UkMap({
                 key={stop.id}
                 className={cls}
                 style={{ transform: `translate(${q.x}px, ${q.y}px) scale(${appear})`, opacity: clamp(appear * 1.5) }}
-                onClick={() => (interactive ? select(selected === stop.id ? null : stop.id) : undefined)}
+                onClick={() => {
+                  // a drag or pinch that started on the pin isn't a tap
+                  if (interactive && travel.current < 8) select(selected === stop.id ? null : stop.id);
+                }}
                 onMouseEnter={() => setHovered(stop.id)}
                 onMouseLeave={() => setHovered(null)}
                 onFocus={() => setHovered(stop.id)}

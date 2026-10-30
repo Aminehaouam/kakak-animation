@@ -288,6 +288,12 @@
   z-index: 1;
 }
 
+.s5__map {
+  position: absolute;
+  inset: 0;
+  will-change: transform;
+}
+
 .s5__ring {
   position: absolute;
   z-index: 2;

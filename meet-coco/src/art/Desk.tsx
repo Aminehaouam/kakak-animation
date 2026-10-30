@@ -87,7 +87,7 @@ const PaperMap = memo(function PaperMap() {
       <rect width={w} height={h} rx={4} fill="#f3ead6" />
       <g transform={`translate(${(w - 879 * k) / 2} 30) scale(${k})`}>
         <rect x={-20} y={-20} width={919} height={1291} fill="#cfe3e6" />
-        <path d={MAP.land} fill="#cfdcb3" stroke="#6f93a4" strokeWidth={3.5} />
+        <path d={MAP.landLow} fill="#cfdcb3" stroke="#6f93a4" strokeWidth={3.5} />
         <path d={MAP.ireland} fill="#efe8d4" opacity={0.6} />
         <path d={MAP.borders} fill="none" stroke="#a46a54" strokeWidth={3} strokeDasharray="10 7" />
         <path d={ROUTE.d()} fill="none" stroke="#cf4339" strokeWidth={6} strokeDasharray="14 10" strokeLinecap="round" />
