@@ -34,7 +34,7 @@ npm run build && npm run preview     # serves on 127.0.0.1:4180
 node tools/capture.cjs still  --t 12 --size 3840x2160 --out renders/london-4k.png
 node tools/capture.cjs layers --t 12 --size 1920x1080 --out renders/layers
 node tools/capture.cjs video  --from 0 --to 22 --fps 30 --size 1920x1080 --out renders/frames
-ffmpeg -framerate 30 -i renders/frames/f%05d.png -c:v libx264 -pix_fmt yuv420p -crf 18 renders/london.mp4
+ffmpeg -framerate 30 -i renders/frames/f%05d.png -c:v libx264 -pix_fmt yuv420p -crf 20 -movflags +faststart renders/coco-london.mp4
 python3 tools/layers_sheet.py && python3 tools/assets_sheet.py
 ```
 
@@ -98,4 +98,4 @@ people · 20. Coco · 21. bus · 22. foreground bushes · 23. light and vignette
 - `src/scene/`: `build.ts` (layers, light, motion), `river.ts`, `coco.ts`, `fx.ts` (code-made
   light and shadow textures), `assets.ts`, `scene.json` (layout).
 - `tools/`: `capture.cjs` (stills, layers, video frames), `layers_sheet.py`, `assets_sheet.py`.
-- `renders/`: the 4K still, the video, the layer and asset sheets.
+- `renders/`: the 4K still (`london-4k.png`), the video (`coco-london.mp4`), the layer and asset sheets.
