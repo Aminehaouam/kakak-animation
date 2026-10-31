@@ -1,0 +1,46 @@
+{
+  "frame": [3840, 2160],
+  "note": "Positions are where each asset's anchor lands in the 3840 x 2160 frame. depth sets parallax: 0 stays still, 1 moves with the camera, more than 1 is in front of the frame.",
+  "horizon": 1150,
+  "waterTop": 1222,
+  "coping": 1572,
+  "layers": [
+    { "name": "sky", "depth": 0.02, "items": [{ "art": "sky", "x": 0, "y": 0 }] },
+    { "name": "clouds-far", "depth": 0.05, "items": [
+      { "art": "cloud_far", "x": 2700, "y": 560, "drift": 7, "alpha": 0.85 },
+      { "art": "cloud_small2", "x": 3520, "y": 700, "drift": 9, "alpha": 0.9 }
+    ] },
+    { "name": "clouds", "depth": 0.08, "items": [
+      { "art": "cloud_big", "x": 1520, "y": 470, "drift": 12 },
+      { "art": "cloud_mid", "x": 3150, "y": 360, "drift": 15 },
+      { "art": "cloud_mid2", "x": 320, "y": 300, "drift": 14 },
+      { "art": "cloud_small", "x": 2450, "y": 780, "drift": 18 }
+    ] },
+    { "name": "skyline-far", "depth": 0.15, "haze": 0.55, "items": [{ "art": "skyline_far", "x": 0, "y": 1186 }] },
+    { "name": "landmarks-back", "depth": 0.25, "haze": 0.22, "items": [
+      { "art": "city_towers", "x": 2380, "y": 1172 },
+      { "art": "st_pauls", "x": 2230, "y": 1150 },
+      { "art": "gherkin", "x": 2545, "y": 1176 },
+      { "art": "shard", "x": 2995, "y": 1186 }
+    ] },
+    { "name": "riverside", "depth": 0.3, "haze": 0.1, "items": [{ "art": "riverside", "x": 0, "y": 1206 }] },
+    { "name": "landmarks-front", "depth": 0.32, "haze": 0.08, "items": [
+      { "art": "eye_frame", "x": 620, "y": 822 },
+      { "art": "eye_wheel", "x": 620, "y": 822, "spin": 0.35 },
+      { "art": "westminster", "x": 1330, "y": 1208 }
+    ] },
+    { "name": "farbank", "depth": 0.33, "haze": 0.06, "items": [{ "art": "farbank", "x": 0, "y": 1196 }] },
+    { "name": "tower-bridge", "depth": 0.34, "haze": 0.06, "items": [{ "art": "tower_bridge", "x": 2860, "y": 1262 }] },
+    { "name": "river", "depth": 0.45, "items": [{ "art": "water", "x": 0, "y": 1222 }] },
+    { "name": "balustrade", "depth": 0.8, "items": [{ "art": "balustrade", "x": 0, "y": 1572 }] },
+    { "name": "promenade", "depth": 0.85, "items": [{ "art": "promenade", "x": 0, "y": 1652 }] },
+    { "name": "street", "depth": 0.88, "items": [
+      { "art": "lamp", "x": -40, "y": 1666 },
+      { "art": "lamp", "x": 760, "y": 1666 },
+      { "art": "lamp", "x": 1560, "y": 1666 },
+      { "art": "lamp", "x": 2360, "y": 1666 },
+      { "art": "lamp", "x": 3160, "y": 1666 }
+    ] }
+  ],
+  "coco": { "perch": [1150, 1574] }
+}

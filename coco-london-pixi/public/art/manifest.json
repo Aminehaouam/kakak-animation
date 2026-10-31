@@ -1,0 +1,341 @@
+{
+ "balustrade": {
+  "file": "art/balustrade.webp",
+  "w": 4240,
+  "h": 92,
+  "ax": 200,
+  "ay": 0
+ },
+ "boat": {
+  "file": "art/boat.webp",
+  "w": 613,
+  "h": 179,
+  "ax": 307.0,
+  "ay": 175,
+  "waterline": 0
+ },
+ "boat_small": {
+  "file": "art/boat_small.webp",
+  "w": 291,
+  "h": 97,
+  "ax": 145.0,
+  "ay": 93
+ },
+ "bus": {
+  "file": "art/bus.webp",
+  "w": 647,
+  "h": 263,
+  "ax": 321.0,
+  "ay": 285,
+  "wheels": [
+   [
+    -182.0,
+    -38
+   ],
+   [
+    190.0,
+    -38
+   ]
+  ]
+ },
+ "bus_wheel": {
+  "file": "art/bus_wheel.webp",
+  "w": 80,
+  "h": 80,
+  "ax": 40.0,
+  "ay": 40.0
+ },
+ "bush_1": {
+  "file": "art/bush_1.webp",
+  "w": 704,
+  "h": 340,
+  "ax": 364.0,
+  "ay": 338
+ },
+ "bush_2": {
+  "file": "art/bush_2.webp",
+  "w": 530,
+  "h": 253,
+  "ax": 253.0,
+  "ay": 251
+ },
+ "bush_3": {
+  "file": "art/bush_3.webp",
+  "w": 416,
+  "h": 200,
+  "ax": 208.0,
+  "ay": 198
+ },
+ "city_towers": {
+  "file": "art/city_towers.webp",
+  "w": 717,
+  "h": 567,
+  "ax": -37,
+  "ay": 563
+ },
+ "cloud_big": {
+  "file": "art/cloud_big.webp",
+  "w": 1081,
+  "h": 398,
+  "ax": 541.0,
+  "ay": 394
+ },
+ "cloud_far": {
+  "file": "art/cloud_far.webp",
+  "w": 780,
+  "h": 146,
+  "ax": 381.0,
+  "ay": 142
+ },
+ "cloud_mid": {
+  "file": "art/cloud_mid.webp",
+  "w": 779,
+  "h": 291,
+  "ax": 396.0,
+  "ay": 287
+ },
+ "cloud_mid2": {
+  "file": "art/cloud_mid2.webp",
+  "w": 683,
+  "h": 213,
+  "ax": 351.0,
+  "ay": 209
+ },
+ "cloud_small": {
+  "file": "art/cloud_small.webp",
+  "w": 443,
+  "h": 162,
+  "ax": 215.0,
+  "ay": 158
+ },
+ "cloud_small2": {
+  "file": "art/cloud_small2.webp",
+  "w": 346,
+  "h": 137,
+  "ax": 174.0,
+  "ay": 133
+ },
+ "coco_body": {
+  "file": "art/coco_body.webp",
+  "w": 365,
+  "h": 589,
+  "ax": 190.0,
+  "ay": 583.0,
+  "scale": 2,
+  "shoulder": [
+   10.0,
+   -315.0
+  ],
+  "eye": [
+   33.0,
+   -474.0
+  ],
+  "eyeR": 42,
+  "pupilR": 20,
+  "height": 578.0
+ },
+ "coco_wing": {
+  "file": "art/coco_wing.webp",
+  "w": 203,
+  "h": 239,
+  "ax": 158,
+  "ay": 19
+ },
+ "coco_wing_far": {
+  "file": "art/coco_wing_far.webp",
+  "w": 203,
+  "h": 239,
+  "ax": 158,
+  "ay": 19
+ },
+ "eye_capsule": {
+  "file": "art/eye_capsule.webp",
+  "w": 64,
+  "h": 62,
+  "ax": 32.0,
+  "ay": 33.0
+ },
+ "eye_frame": {
+  "file": "art/eye_frame.webp",
+  "w": 700,
+  "h": 476,
+  "ax": 476.0,
+  "ay": 40
+ },
+ "eye_wheel": {
+  "file": "art/eye_wheel.webp",
+  "w": 780,
+  "h": 780,
+  "ax": 390.0,
+  "ay": 390.0
+ },
+ "farbank": {
+  "file": "art/farbank.webp",
+  "w": 4240,
+  "h": 330,
+  "ax": 200,
+  "ay": 300
+ },
+ "flag_union": {
+  "file": "art/flag_union.webp",
+  "w": 160,
+  "h": 80,
+  "ax": 0,
+  "ay": 0
+ },
+ "gherkin": {
+  "file": "art/gherkin.webp",
+  "w": 170,
+  "h": 567,
+  "ax": 85.0,
+  "ay": 563
+ },
+ "lamp": {
+  "file": "art/lamp.webp",
+  "w": 76,
+  "h": 360,
+  "ax": 38.0,
+  "ay": 356
+ },
+ "person_1": {
+  "file": "art/person_1.webp",
+  "w": 43,
+  "h": 121,
+  "ax": 19.0,
+  "ay": 117
+ },
+ "person_2": {
+  "file": "art/person_2.webp",
+  "w": 42,
+  "h": 121,
+  "ax": 21.0,
+  "ay": 117
+ },
+ "person_3": {
+  "file": "art/person_3.webp",
+  "w": 41,
+  "h": 121,
+  "ax": 19.0,
+  "ay": 117
+ },
+ "person_4": {
+  "file": "art/person_4.webp",
+  "w": 46,
+  "h": 122,
+  "ax": 25.0,
+  "ay": 118
+ },
+ "person_5": {
+  "file": "art/person_5.webp",
+  "w": 41,
+  "h": 122,
+  "ax": 19.0,
+  "ay": 118
+ },
+ "person_6": {
+  "file": "art/person_6.webp",
+  "w": 28,
+  "h": 78,
+  "ax": 14.0,
+  "ay": 74
+ },
+ "person_7": {
+  "file": "art/person_7.webp",
+  "w": 41,
+  "h": 121,
+  "ax": 19.0,
+  "ay": 117
+ },
+ "person_8": {
+  "file": "art/person_8.webp",
+  "w": 42,
+  "h": 122,
+  "ax": 21.0,
+  "ay": 118
+ },
+ "promenade": {
+  "file": "art/promenade.webp",
+  "w": 4240,
+  "h": 508,
+  "ax": 200,
+  "ay": 0
+ },
+ "riverside": {
+  "file": "art/riverside.webp",
+  "w": 4240,
+  "h": 520,
+  "ax": 200,
+  "ay": 514
+ },
+ "shard": {
+  "file": "art/shard.webp",
+  "w": 263,
+  "h": 1000,
+  "ax": 131.0,
+  "ay": 996
+ },
+ "sky": {
+  "file": "art/sky.webp",
+  "w": 4240,
+  "h": 1320,
+  "ax": 200,
+  "ay": 0
+ },
+ "skyline_far": {
+  "file": "art/skyline_far.webp",
+  "w": 4240,
+  "h": 700,
+  "ax": 200,
+  "ay": 698
+ },
+ "st_pauls": {
+  "file": "art/st_pauls.webp",
+  "w": 507,
+  "h": 576,
+  "ax": 253.0,
+  "ay": 572
+ },
+ "tower_bridge": {
+  "file": "art/tower_bridge.webp",
+  "w": 960,
+  "h": 511,
+  "ax": 0,
+  "ay": 507,
+  "towers": [
+   300.0,
+   660.0
+  ]
+ },
+ "tree_prom_1": {
+  "file": "art/tree_prom_1.webp",
+  "w": 425,
+  "h": 518,
+  "ax": 207.0,
+  "ay": 514
+ },
+ "tree_prom_2": {
+  "file": "art/tree_prom_2.webp",
+  "w": 377,
+  "h": 502,
+  "ax": 190.0,
+  "ay": 498
+ },
+ "water": {
+  "file": "art/water.webp",
+  "w": 4240,
+  "h": 430,
+  "ax": 200,
+  "ay": 0
+ },
+ "westminster": {
+  "file": "art/westminster.webp",
+  "w": 621,
+  "h": 661,
+  "ax": 48.4,
+  "ay": 656,
+  "flag": [
+   501.2,
+   -496.8
+  ]
+ }
+}

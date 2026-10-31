@@ -1,0 +1,21 @@
+{
+  "name": "coco-london-pixi",
+  "private": true,
+  "version": "0.1.0",
+  "description": "A standalone visual experiment: a premium illustrated London scene with Coco, rendered and animated with PixiJS.",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview",
+    "art": "python3 art/build.py",
+    "capture": "node tools/capture.cjs"
+  },
+  "dependencies": {
+    "pixi.js": "8.22.0"
+  },
+  "devDependencies": {
+    "typescript": "7.0.2",
+    "vite": "8.3.4"
+  }
+}

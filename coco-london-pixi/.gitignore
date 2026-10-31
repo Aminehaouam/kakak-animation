@@ -1,0 +1,13 @@
+node_modules
+dist
+renders/frames
+*.log
+__pycache__/
+art/.cache
+renders/layers
+renders/check-*.png
+renders/t*.png
+renders/crop-*.jpg
+renders/coco_flight_check.jpg
+renders/london-4k-small.jpg
+renders/video.log
