@@ -1,6 +1,7 @@
 import { memo } from 'react';
 import { rng } from '../../lib/anim';
 import type { CityPalette } from '../palette';
+import { Band } from '../shadow';
 import { BigBen, LondonEye, Parliament } from './Landmarks';
 import { Bus, Cloud, Lamp, Person, PhoneBox, Railing, Taxi, Tree } from './Street';
 
@@ -56,6 +57,7 @@ const Backdrop = memo(function Backdrop({ pal }: { pal: CityPalette }) {
       </g>
       <rect x={560} y={RIVER[1]} width={1040} height={10} fill={pal.wallTop} />
       <rect x={0} y={RIVER[1] + 8} width={STREET_W} height={ROAD[0] - RIVER[1] - 8} fill={pal.pavement} />
+      <Band x={0} y={RIVER[1] + 8} w={STREET_W} h={14} color={pal.shadow} />
       <rect x={0} y={ROAD[0] - 8} width={STREET_W} height={8} fill={pal.wallTop} />
       <rect x={0} y={ROAD[0]} width={STREET_W} height={ROAD[1] - ROAD[0]} fill={pal.road} />
       {Array.from({ length: 12 }).map((_, i) => (
@@ -63,6 +65,7 @@ const Backdrop = memo(function Backdrop({ pal }: { pal: CityPalette }) {
       ))}
       <rect x={0} y={ROAD[1]} width={STREET_W} height={10} fill={pal.wallTop} />
       <rect x={0} y={ROAD[1] + 10} width={STREET_W} height={STREET_H - ROAD[1]} fill={pal.pavement} />
+      <Band x={0} y={ROAD[1] + 10} w={STREET_W} h={10} color={pal.shadow} strength={0.8} />
       {Array.from({ length: 24 }).map((_, i) => (
         <line key={i} x1={i * 70} y1={ROAD[1] + 10} x2={i * 70 - 40} y2={STREET_H} stroke={pal.wall} strokeWidth={2} opacity={0.4} />
       ))}
@@ -73,7 +76,8 @@ const Backdrop = memo(function Backdrop({ pal }: { pal: CityPalette }) {
   );
 });
 
-export const LondonStreet = memo(function LondonStreet({ pal, t, still = false }: { pal: CityPalette; t: number; still?: boolean }) {
+/** `perch` (0..1): Coco sits on the phone box, so its dome takes his shadow. */
+export const LondonStreet = memo(function LondonStreet({ pal, t, still = false, perch = 0 }: { pal: CityPalette; t: number; still?: boolean; perch?: number }) {
   const time = still ? 4 : t;
   const busX = -420 + (time - 0.3) * 330;
   const taxiX = STREET_W + 260 - (time - 1.4) * 380;
@@ -105,7 +109,7 @@ export const LondonStreet = memo(function LondonStreet({ pal, t, still = false }
         </g>
       </g>
       <g transform={`translate(${STREET.phoneBox.x} ${STREET.phoneBox.y}) scale(2.2)`}>
-        <PhoneBox pal={pal} />
+        <PhoneBox pal={pal} perch={perch} />
       </g>
       {Array.from({ length: 5 }).map((_, i) => {
         const r = rng(i + 70);
@@ -114,7 +118,7 @@ export const LondonStreet = memo(function LondonStreet({ pal, t, still = false }
         const x = ((((r() * 1900 + dir * time * speed) % 1900) + 1900) % 1900) - 150;
         return (
           <g key={i} transform={`translate(${x} ${846 + r() * 40}) scale(${dir * 2.6} 2.6)`}>
-            <Person seed={i + 20} phase={time * speed * 0.1 + i} />
+            <Person seed={i + 20} phase={time * speed * 0.1 + i} shade={pal.shadow} />
           </g>
         );
       })}

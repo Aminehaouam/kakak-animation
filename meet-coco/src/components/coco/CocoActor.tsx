@@ -12,12 +12,14 @@ interface CocoActorProps {
   opacity?: number;
   label?: string;
   className?: string;
+  /** 0..1: a soft contact shadow at the feet while Coco stands or perches on a flat surface. */
+  shadow?: number;
 }
 
 /** Coco placed by the feet at (state.x, state.y) in the parent's coordinates. */
-export const CocoActor = memo(function CocoActor({ state, height, cue, still, silhouette, opacity = 1, label, className }: CocoActorProps) {
+export const CocoActor = memo(function CocoActor({ state, height, cue, still, silhouette, opacity = 1, label, className, shadow = 0 }: CocoActorProps) {
   const h = height * state.scale;
-  return (
+  const coco = (
     <div
       className={className}
       style={{
@@ -34,5 +36,15 @@ export const CocoActor = memo(function CocoActor({ state, height, cue, still, si
     >
       <Coco mode={state.mode} facing={state.facing} cue={cue} still={still} silhouette={silhouette} label={label} style={{ height: '100%' }} />
     </div>
+  );
+  if (shadow <= 0) return coco;
+  // grounded only (it fades out on takeoff and back in on landing); an ink drawing casts none
+  const strength = state.mode === 'fly' ? 0 : shadow * (1 - Math.min(Math.max(silhouette ?? 0, 0), 1)) * opacity;
+  const w = h * 0.42;
+  return (
+    <>
+      <i className="coco-shadow" aria-hidden style={{ width: w, height: w * 0.16, opacity: strength, transform: `translate(${state.x - w / 2 + h * 0.03}px, ${state.y - w * 0.07}px)` }} />
+      {coco}
+    </>
   );
 });

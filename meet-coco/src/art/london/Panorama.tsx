@@ -1,6 +1,7 @@
 import { memo, useMemo } from 'react';
 import { rng } from '../../lib/anim';
 import type { CityPalette } from '../palette';
+import { Band } from '../shadow';
 import { BigBen, Gherkin, LondonEye, Parliament, Shard, StPauls, TowerBridge } from './Landmarks';
 import { Boat, Bus, Cloud, Lamp, Person, Pigeon, Railing, Taxi, Terrace, Tree, terrace } from './Street';
 
@@ -128,6 +129,9 @@ const NearStatic = memo(function NearStatic({ pal }: { pal: CityPalette }) {
       ))}
       <rect x={-400} y={ROAD[1]} width={PANO_W + 800} height={6} fill={pal.wallTop} />
       <rect x={-400} y={ROAD[0] - 6} width={PANO_W + 800} height={6} fill={pal.wallTop} />
+      {/* soft shade under the embankment wall and the far kerb */}
+      <Band x={-400} y={WALL + 2} w={PANO_W + 800} h={14} color={pal.shadow} />
+      <Band x={-400} y={ROAD[1] + 6} w={PANO_W + 800} h={8} color={pal.shadow} strength={0.8} />
       <g transform={`translate(-400 ${WALL})`}>
         <Railing pal={pal} width={PANO_W + 800} />
       </g>
@@ -179,7 +183,7 @@ export const LondonPanorama = memo(function LondonPanorama({ pal, t, camX, still
         {/* pigeons over the river */}
         {[0, 1, 2, 3].map((i) => (
           <g key={i} transform={`translate(${(600 + i * 70 + time * 40) % 3400} ${330 + i * 18 + Math.sin(time + i) * 8})`}>
-            <Pigeon flap={time * 2.2 + i * 0.3} color={dusk ? '#3a2f40' : '#56606b'} />
+            <Pigeon flap={time * 2.2 + i * 0.3} color={dusk ? '#33283a' : '#525c67'} />
           </g>
         ))}
       </g>
@@ -193,6 +197,8 @@ export const LondonPanorama = memo(function LondonPanorama({ pal, t, camX, still
           </linearGradient>
         </defs>
         <rect x={-500} y={BANK + 6} width={PANO_W + 1000} height={WALL - BANK} fill={`url(#river-${pal.name})`} />
+        {/* the far bank's shade on the water */}
+        <Band x={-500} y={BANK + 6} w={PANO_W + 1000} h={16} color={pal.shadow} />
         <clipPath id={`riverclip-${pal.name}`}>
           <rect x={-500} y={BANK + 6} width={PANO_W + 1000} height={WALL - BANK} />
         </clipPath>
@@ -253,7 +259,7 @@ export const LondonPanorama = memo(function LondonPanorama({ pal, t, camX, still
           const x = (((r() * (PANO_W + 400) + dir * time * speed) % (PANO_W + 400)) + PANO_W + 400) % (PANO_W + 400) - 200;
           return (
             <g key={i} transform={`translate(${x} ${row}) scale(${dir * 1.15} 1.15)`}>
-              <Person seed={i} phase={time * speed * 0.32 + i} />
+              <Person seed={i} phase={time * speed * 0.32 + i} shade={pal.shadow} />
             </g>
           );
         })}

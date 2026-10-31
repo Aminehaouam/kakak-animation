@@ -20,3 +20,37 @@
 .coco--left canvas {
   transform: scaleX(-1);
 }
+
+/* a soft contact shadow at the feet: three flat ellipses, no gradient or blur */
+.coco-shadow {
+  position: absolute;
+  left: 0;
+  top: 0;
+  border-radius: 50%;
+  background: rgb(26 18 24 / 0.1);
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+}
+
+.coco-shadow::before,
+.coco-shadow::after {
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+  background: rgb(26 18 24 / 0.11);
+}
+
+.coco-shadow::before {
+  inset: 14% 10%;
+}
+
+.coco-shadow::after {
+  inset: 30% 24%;
+  background: rgb(26 18 24 / 0.13);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .coco-shadow {
+    transition: none;
+  }
+}

@@ -40,6 +40,8 @@ export function S5London({ t, active, reduced }: SceneProps) {
     );
   }, [vp.portrait]);
   const fl = reduced ? { ...STREET.phoneTop, mode: 'perch' as const, facing: 'left' as const, tilt: 0, scale: 1 } : plan.at(t);
+  // Coco's shadow on the dome, as he settles on it
+  const onBox = reduced ? 1 : ease.inOut(progress(t, 4.95, 0.3));
 
   const r = reduced ? (t > IRIS[0] ? 1 : 0) : ease.inOut(progress(t, IRIS[0], IRIS[1]));
   const radius = r * Math.hypot(vp.width, vp.height) * 0.62;
@@ -57,7 +59,7 @@ export function S5London({ t, active, reduced }: SceneProps) {
         style={r < 1 ? { clipPath: `circle(${radius}px at 50% 50%)`, WebkitClipPath: `circle(${radius}px at 50% 50%)` } : undefined}
       >
         <Stage width={STREET_W} height={STREET_H} camera={{ x: camX, y: STREET_H / 2 + 20, zoom }}>
-          <LondonStreet pal={DAY} t={t} still={reduced} />
+          <LondonStreet pal={DAY} t={t} still={reduced} perch={onBox} />
           {(t >= 2.9 || reduced) && <CocoActor state={fl} height={150} cue={t > 6.4 ? { kind: 'look', id: 1 } : null} still={reduced} label="Coco on a red telephone box" />}
         </Stage>
       </div>

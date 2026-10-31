@@ -30,11 +30,12 @@ export const DESK = {
   journalCentre: { x: JOURNAL.x + 10, y: JOURNAL.y + JOURNAL.h / 2 },
 };
 
-function softShadow(x: number, y: number, w: number, h: number, r: number, tilt = 0) {
+/** `lift` scales how far the shadow falls: 1 for the journal and the documents, less for thin paper. */
+function softShadow(x: number, y: number, w: number, h: number, r: number, tilt = 0, lift = 1) {
   return (
     <g transform={`rotate(${tilt} ${x + w / 2} ${y + h / 2})`}>
       {[22, 14, 7].map((s, i) => (
-        <rect key={i} x={x + 10 - s / 2} y={y + 16 - s / 2} width={w + s} height={h + s} rx={r + s / 2} fill="#2a160a" opacity={0.07 + i * 0.03} />
+        <rect key={i} x={x + 10 * lift - (s * lift) / 2} y={y + 16 * lift - (s * lift) / 2} width={w + s * lift} height={h + s * lift} rx={r + (s * lift) / 2} fill="#240e02" opacity={0.07 + i * 0.03} />
       ))}
     </g>
   );
@@ -53,25 +54,25 @@ const Wood = memo(function Wood() {
     <g>
       <defs>
         <linearGradient id="wood" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0" stopColor="#9a643f" />
-          <stop offset="0.5" stopColor="#865433" />
-          <stop offset="1" stopColor="#6a3f26" />
+          <stop offset="0" stopColor="#a05f30" />
+          <stop offset="0.5" stopColor="#8a4e24" />
+          <stop offset="1" stopColor="#6c3919" />
         </linearGradient>
         <radialGradient id="lamp" cx="0.3" cy="0.22" r="0.85">
           <stop offset="0" stopColor="#ffd59a" stopOpacity="0.38" />
           <stop offset="0.45" stopColor="#ffc277" stopOpacity="0.12" />
-          <stop offset="1" stopColor="#1a0c05" stopOpacity="0.5" />
+          <stop offset="1" stopColor="#170903" stopOpacity="0.5" />
         </radialGradient>
       </defs>
       <rect width={DESK_W} height={DESK_H} fill="url(#wood)" />
       {grain.map((g, i) => (
-        <path key={i} d={g.d} stroke={g.dark ? '#4a2915' : '#c08a5c'} strokeWidth={g.w} opacity={g.o} fill="none" />
+        <path key={i} d={g.d} stroke={g.dark ? '#4a2309' : '#c7874d'} strokeWidth={g.w} opacity={g.o} fill="none" />
       ))}
       {[380, 860, 1340].map((x) => (
-        <line key={x} x1={x} y1={0} x2={x + 6} y2={DESK_H} stroke="#3c2111" strokeWidth={2} opacity={0.35} />
+        <line key={x} x1={x} y1={0} x2={x + 6} y2={DESK_H} stroke="#3a1c09" strokeWidth={2} opacity={0.35} />
       ))}
-      <ellipse cx={240} cy={720} rx={22} ry={9} fill="#4a2915" opacity={0.25} />
-      <ellipse cx={1240} cy={180} rx={16} ry={7} fill="#4a2915" opacity={0.22} />
+      <ellipse cx={240} cy={720} rx={22} ry={9} fill="#4a2309" opacity={0.25} />
+      <ellipse cx={1240} cy={180} rx={16} ry={7} fill="#4a2309" opacity={0.22} />
     </g>
   );
 });
@@ -110,11 +111,11 @@ const Passport = memo(function Passport() {
   return (
     <g transform="translate(1290 90) rotate(9 115 150)">
       {softShadow(0, 0, 230, 310, 14)}
-      <rect width={230} height={310} rx={14} fill="#6e1f2b" />
-      <rect x={10} y={10} width={210} height={290} rx={9} fill="none" stroke="#e2b25a" strokeWidth={1.4} opacity={0.6} />
-      <circle cx={115} cy={150} r={44} fill="none" stroke="#e2b25a" strokeWidth={3} />
-      <circle cx={115} cy={150} r={30} fill="none" stroke="#e2b25a" strokeWidth={2} />
-      <path d="M85 150 h60 M115 120 q-22 30 0 60 q22 -30 0 -60" fill="none" stroke="#e2b25a" strokeWidth={2} />
+      <rect width={230} height={310} rx={14} fill="#6b0e22" />
+      <rect x={10} y={10} width={210} height={290} rx={9} fill="none" stroke="#ebaf35" strokeWidth={1.4} opacity={0.6} />
+      <circle cx={115} cy={150} r={44} fill="none" stroke="#ebaf35" strokeWidth={3} />
+      <circle cx={115} cy={150} r={30} fill="none" stroke="#ebaf35" strokeWidth={2} />
+      <path d="M85 150 h60 M115 120 q-22 30 0 60 q22 -30 0 -60" fill="none" stroke="#ebaf35" strokeWidth={2} />
       <text x={115} y={240} textAnchor="middle" fontFamily="var(--font-display)" fontWeight={600} fontSize={22} letterSpacing={5} fill="#e9c071">
         PASSPORT
       </text>
@@ -136,7 +137,7 @@ const Ticket = memo(function Ticket() {
     <g transform={`translate(${x} ${y}) rotate(${tilt} ${w / 2} ${h / 2})`}>
       {softShadow(0, 0, w, h, 10)}
       <rect width={w} height={h} rx={10} fill="#fbf6ea" />
-      <path d={`M0 10 a10 10 0 0 1 10 -10 H${w - 10} a10 10 0 0 1 10 10 V40 H0Z`} fill="#24506b" />
+      <path d={`M0 10 a10 10 0 0 1 10 -10 H${w - 10} a10 10 0 0 1 10 10 V40 H0Z`} fill="#104b6b" />
       <text x={18} y={27} fontFamily="var(--font-ui)" fontWeight={800} fontSize={14} letterSpacing={3} fill="#fff">
         BOARDING PASS
       </text>
@@ -159,9 +160,9 @@ const Ticket = memo(function Ticket() {
       <text x={18} y={144} fontFamily="var(--font-ui)" fontWeight={700} fontSize={11} fill="#5b6773">
         GATE 12 · SEAT 7A · WINDOW
       </text>
-      <line x1={w - 108} y1={46} x2={w - 108} y2={h - 8} stroke="#b9b2a2" strokeWidth={2} strokeDasharray="5 5" />
+      <line x1={w - 108} y1={46} x2={w - 108} y2={h - 8} stroke="#b9b2a1" strokeWidth={2} strokeDasharray="5 5" />
       {Array.from({ length: 30 }).map((_, i) => (
-        <rect key={i} x={w - 92 + i * 2.6} y={56} width={r() < 0.5 ? 1.2 : 2} height={72} fill="#23303c" />
+        <rect key={i} x={w - 92 + i * 2.6} y={56} width={r() < 0.5 ? 1.2 : 2} height={72} fill="#1b2935" />
       ))}
       <text x={w - 54} y={146} textAnchor="middle" fontFamily="var(--font-ui)" fontWeight={800} fontSize={12} fill="#23303c">
         LHR
@@ -173,15 +174,15 @@ const Ticket = memo(function Ticket() {
 const Tea = memo(function Tea() {
   return (
     <g transform="translate(270 790)">
-      <ellipse cx={8} cy={14} rx={118} ry={112} fill="#2a160a" opacity={0.18} />
+      <ellipse cx={8} cy={14} rx={118} ry={112} fill="#240e02" opacity={0.18} />
       <circle r={112} fill="#f7f3ec" />
-      <circle r={96} fill="none" stroke="#2f5d8a" strokeWidth={3} opacity={0.5} />
+      <circle r={96} fill="none" stroke="#155892" strokeWidth={3} opacity={0.5} />
       <circle r={74} fill="#fdfbf6" />
       <path d="M70 -14 q46 0 46 22 q0 22 -46 22" fill="none" stroke="#f1ece2" strokeWidth={14} />
-      <circle r={60} fill="#9a5b2c" />
-      <circle r={60} fill="none" stroke="#d6c7b0" strokeWidth={4} />
+      <circle r={60} fill="#9c551a" />
+      <circle r={60} fill="none" stroke="#d7c7ad" strokeWidth={4} />
       <ellipse cx={-18} cy={-20} rx={24} ry={10} fill="#fff" opacity={0.22} transform="rotate(-30)" />
-      <rect x={-150} y={70} width={70} height={22} rx={4} fill="#efe2c9" transform="rotate(-24 -115 81)" />
+      <rect x={-150} y={70} width={70} height={22} rx={4} fill="#f0e2c6" transform="rotate(-24 -115 81)" />
     </g>
   );
 });
@@ -189,13 +190,13 @@ const Tea = memo(function Tea() {
 const Pencil = memo(function Pencil() {
   return (
     <g transform="translate(560 860) rotate(-18)">
-      <rect x={0} y={-9} width={230} height={18} rx={2} fill="#2a160a" opacity={0.2} transform="translate(6 10)" />
-      <rect x={0} y={-9} width={200} height={18} fill="#f2b53c" />
+      <rect x={0} y={-9} width={230} height={18} rx={2} fill="#240e02" opacity={0.2} transform="translate(6 10)" />
+      <rect x={0} y={-9} width={200} height={18} fill="#f3b537" />
       <rect x={0} y={-9} width={200} height={6} fill="#ffcf63" />
-      <rect x={-26} y={-9} width={26} height={18} rx={4} fill="#e88b8b" />
+      <rect x={-26} y={-9} width={26} height={18} rx={4} fill="#f87f82" />
       <rect x={-6} y={-10} width={12} height={20} fill="#b9b9b9" />
-      <path d="M200 -9 L232 0 L200 9Z" fill="#f1d7a8" />
-      <path d="M222 -3 L232 0 L222 3Z" fill="#333" />
+      <path d="M200 -9 L232 0 L200 9Z" fill="#f8d697" />
+      <path d="M222 -3 L232 0 L222 3Z" fill="#2c2c2c" />
     </g>
   );
 });
@@ -204,17 +205,19 @@ const Stamps = memo(function Stamps() {
   return (
     <g>
       <g transform="translate(560 70) rotate(6)">
-        <rect width={84} height={100} fill="#fbf6ea" stroke="#d8cdb6" strokeDasharray="4 3" strokeWidth={3} />
-        <rect x={9} y={9} width={66} height={70} fill="#cf4339" />
+        {softShadow(0, 0, 84, 100, 2, 0, 0.4)}
+        <rect width={84} height={100} fill="#fbf6ea" stroke="#d9cdb4" strokeDasharray="4 3" strokeWidth={3} />
+        <rect x={9} y={9} width={66} height={70} fill="#da2925" />
         <circle cx={42} cy={44} r={18} fill="#fbf6ea" opacity={0.85} />
         <text x={42} y={92} textAnchor="middle" fontSize={10} fontWeight={800} fill="#23303c" fontFamily="var(--font-ui)">
           1st
         </text>
       </g>
       <g transform="translate(470 120) rotate(-10)">
-        <rect width={70} height={86} fill="#fbf6ea" stroke="#d8cdb6" strokeDasharray="4 3" strokeWidth={3} />
-        <rect x={8} y={8} width={54} height={58} fill="#2f6f8f" />
-        <path d="M14 56 l14 -22 10 12 8 -10 12 20z" fill="#e8d9a8" />
+        {softShadow(0, 0, 70, 86, 2, 0, 0.4)}
+        <rect width={70} height={86} fill="#fbf6ea" stroke="#d9cdb4" strokeDasharray="4 3" strokeWidth={3} />
+        <rect x={8} y={8} width={54} height={58} fill="#1b6c91" />
+        <path d="M14 56 l14 -22 10 12 8 -10 12 20z" fill="#ecd998" />
       </g>
     </g>
   );
@@ -226,16 +229,16 @@ const Pages = memo(function Pages({ writing }: { writing: number }) {
   const lines = ['Day 1 — England!', 'Things to try:', '☐ a proper cup of tea', '☐ a red bus ride', '☐ say "cheers!"'];
   return (
     <g>
-      <rect x={x - w} y={y} width={w * 2} height={h} rx={6} fill="#f6eedd" />
+      <rect x={x - w} y={y} width={w * 2} height={h} rx={6} fill="#f6eedc" />
       <rect x={x - w} y={y} width={w} height={h} fill="url(#page-left)" />
       <rect x={x} y={y} width={w} height={h} fill="url(#page-right)" />
       {Array.from({ length: 16 }).map((_, i) => (
-        <g key={i} stroke="#b9cde0" strokeWidth={1.2} opacity={0.55}>
+        <g key={i} stroke="#b7cde2" strokeWidth={1.2} opacity={0.55}>
           <line x1={x - w + 34} y1={y + 70 + i * 32} x2={x - 26} y2={y + 70 + i * 32} />
           <line x1={x + 26} y1={y + 70 + i * 32} x2={x + w - 34} y2={y + 70 + i * 32} />
         </g>
       ))}
-      <line x1={x - w + 70} y1={y + 20} x2={x - w + 70} y2={y + h - 20} stroke="#e7a3a0" strokeWidth={1.6} opacity={0.6} />
+      <line x1={x - w + 70} y1={y + 20} x2={x - w + 70} y2={y + h - 20} stroke="#f49c99" strokeWidth={1.6} opacity={0.6} />
       <defs>
         <clipPath id="write-clip">
           <rect x={x - w} y={y} width={w * Math.min(writing * 1.15, 1)} height={h} />
@@ -253,7 +256,7 @@ const Pages = memo(function Pages({ writing }: { writing: number }) {
           <path d="M-60 0 H60" />
         </g>
       </g>
-      <rect x={x - 3} y={y} width={6} height={h} fill="#c9b99a" opacity={0.6} />
+      <rect x={x - 3} y={y} width={6} height={h} fill="#ccb993" opacity={0.6} />
     </g>
   );
 });
@@ -278,15 +281,15 @@ export const Desk = memo(function Desk({ open, writing, band, t }: DeskProps) {
       <defs>
         <linearGradient id="page-left" x1="0" x2="1">
           <stop offset="0.75" stopColor="#000" stopOpacity="0" />
-          <stop offset="1" stopColor="#7a5a32" stopOpacity="0.18" />
+          <stop offset="1" stopColor="#7d5623" stopOpacity="0.18" />
         </linearGradient>
         <linearGradient id="page-right" x1="0" x2="1">
-          <stop offset="0" stopColor="#7a5a32" stopOpacity="0.2" />
+          <stop offset="0" stopColor="#7d5623" stopOpacity="0.2" />
           <stop offset="0.22" stopColor="#000" stopOpacity="0" />
         </linearGradient>
         <linearGradient id="cover" x1="0" x2="1" y1="0" y2="1">
-          <stop offset="0" stopColor="#2f6a55" />
-          <stop offset="1" stopColor="#1f4a3b" />
+          <stop offset="0" stopColor="#1b6a51" />
+          <stop offset="1" stopColor="#114837" />
         </linearGradient>
       </defs>
       <Wood />
@@ -310,17 +313,17 @@ export const Desk = memo(function Desk({ open, writing, band, t }: DeskProps) {
       <Pencil />
       <g transform={`rotate(${tilt} ${x} ${y + h / 2})`}>
         {softShadow(x - w * Math.max(open * 1.2 - 0.2, 0), y, w + w * Math.max(open * 1.2 - 0.2, 0), h, 8)}
-        {open > 0 ? <Pages writing={writing} /> : <rect x={x} y={y} width={w} height={h} fill="#f6eedd" />}
+        {open > 0 ? <Pages writing={writing} /> : <rect x={x} y={y} width={w} height={h} fill="#f6eedc" />}
         {/* page block edge */}
-        <rect x={x + w - 2} y={y + 4} width={8} height={h - 8} rx={2} fill="#e8dcc4" />
+        <rect x={x + w - 2} y={y + 4} width={8} height={h - 8} rx={2} fill="#e9dcc1" />
         {/* the cover swinging over the spine */}
         {c > -0.999 && (
           <g transform={`translate(${x} 0) scale(${c} 1) translate(${-x} 0)`}>
-            {lift > 0.02 && c > 0 && <rect x={x} y={y + 8} width={w} height={h} fill="#2a160a" opacity={0.2 * lift} />}
-            <rect x={x} y={y - 6 * lift} width={w + 8} height={h + 12 * lift} rx={10} fill={c > 0 ? 'url(#cover)' : '#e9dcc0'} />
+            {lift > 0.02 && c > 0 && <rect x={x} y={y + 8} width={w} height={h} fill="#240e02" opacity={0.2 * lift} />}
+            <rect x={x} y={y - 6 * lift} width={w + 8} height={h + 12 * lift} rx={10} fill={c > 0 ? 'url(#cover)' : '#ebdcbc'} />
             {c > 0 && (
               <g>
-                <rect x={x + 18} y={y + 18} width={w - 28} height={h - 36} rx={6} fill="none" stroke="#e2c27a" strokeWidth={1.6} strokeDasharray="7 6" opacity={0.6} />
+                <rect x={x + 18} y={y + 18} width={w - 28} height={h - 36} rx={6} fill="none" stroke="#eac05c" strokeWidth={1.6} strokeDasharray="7 6" opacity={0.6} />
                 <text x={x + w / 2} y={y + 180} textAnchor="middle" fontFamily="var(--font-display)" fontWeight={600} fontSize={46} fill="#e9c97f">
                   Travel
                 </text>
@@ -331,13 +334,13 @@ export const Desk = memo(function Desk({ open, writing, band, t }: DeskProps) {
                 <text x={x + w / 2} y={y + h - 70} textAnchor="middle" fontFamily="var(--font-hand)" fontSize={30} fill="#e9c97f" opacity={0.9}>
                   Coco &amp; me
                 </text>
-                <rect x={x + w - 64 + band * 90} y={y - 4} width={22} height={h + 8} rx={4} fill="#1a1d22" opacity={1 - band} />
+                <rect x={x + w - 64 + band * 90} y={y - 4} width={22} height={h + 8} rx={4} fill="#13161b" opacity={1 - band} />
               </g>
             )}
           </g>
         )}
         {/* ribbon bookmark */}
-        <path d={`M${x + 120} ${y + h - 4} l0 70 l12 -12 l12 12 l0 -70`} fill="#c8483e" />
+        <path d={`M${x + 120} ${y + h - 4} l0 70 l12 -12 l12 12 l0 -70`} fill="#d82825" />
       </g>
       <rect width={DESK_W} height={DESK_H} fill="url(#lamp)" />
     </svg>

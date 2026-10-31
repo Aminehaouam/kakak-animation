@@ -119,6 +119,7 @@ function DeskScene({ time, active, reduced }: { time: number; active: boolean; r
           <CocoActor
             state={fl}
             height={cocoH}
+            shadow={1}
             silhouette={1 - alive}
             cue={time > T_TAKEOFF + FLIGHT + 0.8 ? { kind: 'excite', id: 1 } : null}
             still={reduced || alive < 0.5}

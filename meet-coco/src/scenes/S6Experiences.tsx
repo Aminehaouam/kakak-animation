@@ -120,7 +120,7 @@ export function S6Experiences({ t, active, reduced }: SceneProps) {
             </figure>
           );
         })}
-        <CocoActor state={fl} height={118} still={reduced} cue={t > T_OVERVIEW + 0.8 ? { kind: 'excite', id: 1 } : null} />
+        <CocoActor state={fl} height={118} shadow={0.8} still={reduced} cue={t > T_OVERVIEW + 0.8 ? { kind: 'excite', id: 1 } : null} />
       </Stage>
     </div>
   );

@@ -61,7 +61,7 @@ export function S7LiveIt({ t, active, reduced }: SceneProps) {
         <div className="s7__bg" />
         {panel(
           0,
-          <CocoActor state={still(AIRPORT.perch.x, AIRPORT.perch.y, 'right')} height={110} still={reduced} cue={t > 1.6 ? { kind: 'look', id: 1 } : party} />,
+          <CocoActor state={still(AIRPORT.perch.x, AIRPORT.perch.y, 'right')} height={110} shadow={1} still={reduced} cue={t > 1.6 ? { kind: 'look', id: 1 } : party} />,
           <Airport t={t} still={reduced} stamp={stamp} />,
           'Coco watches the passport check',
         )}
@@ -76,11 +76,11 @@ export function S7LiveIt({ t, active, reduced }: SceneProps) {
         )}
         {panel(
           2,
-          <CocoActor state={still(CAFE.perch.x, CAFE.perch.y, 'left', 'stand')} height={124} still={reduced} cue={t > 3.6 ? { kind: 'excite', id: 1 } : null} />,
+          <CocoActor state={still(CAFE.perch.x, CAFE.perch.y, 'left', 'stand')} height={124} shadow={1} still={reduced} cue={t > 3.6 ? { kind: 'excite', id: 1 } : null} />,
           <Cafe t={t} still={reduced} />,
           'Coco beside a cup of tea',
         )}
-        {panel(3, <CocoActor state={flCity} height={104} still={reduced} cue={party} />, <Market t={t} still={reduced} />, 'Coco flies to a street sign')}
+        {panel(3, <CocoActor state={flCity} height={104} shadow={0.8} still={reduced} cue={party} />, <Market t={t} still={reduced} />, 'Coco flies to a street sign')}
         <div className="s7__dim" style={{ opacity: reduced ? (t >= 7.4 ? 0.5 : 0) : 0.55 * ease.out(progress(t, 7.2, 0.8)) }} />
       </Stage>
     </div>

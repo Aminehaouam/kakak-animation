@@ -176,7 +176,7 @@ export const TowerBridge = memo(function TowerBridge({ pal, lift = 0 }: P & { li
       <rect x={-40} y={30} width={80} height={14} fill={pal.wall} />
     </g>
   );
-  const blue = pal.name === 'sunset' ? '#7d9cc4' : '#5f9ccf';
+  const blue = pal.name === 'sunset' ? '#749cd0' : '#489ddf';
   return (
     <g>
       {/* suspension chains to the banks */}
